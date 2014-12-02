@@ -1,0 +1,64 @@
+﻿@section scripts {
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-1.0.0.js"></script>
+    <script type="text/javascript" src="~/signalr/hubs"></script>
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/app.js"></script>
+}
+<style type="text/css">.row-fluid { }
+
+ .span8 { }
+
+ .span4 { }
+</style>
+
+<div class="row-fluid">
+    <div class="span8">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Restaurant</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody >
+            </tbody>
+        </table>
+    </div>
+    <div class="span4">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Subtotal</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: Cart.items">
+                <tr>
+                    <td data-bind="text: $index()+1"></td>
+                    <td data-bind="text: product.title"></td>
+                    <td data-bind="text: subtotal()"></td>
+                    <td data-bind="text: quantity"></td>
+                    <td>
+                        <button class="btn btn-primary" type="button" data-bind='click: $parent.Cart.remove'>Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table">
+            <tr class="success">
+                <td>
+                    Total: <span data-bind='text: Cart.grandTotal()'> </span>
+                </td>
+                <td>
+                    <button class="btn btn-primary" type="button" data-bind='click: Cart.checkOut'>Send Order</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
