@@ -1,0 +1,70 @@
+﻿
+<style type="text/css">
+    .hero-unit {
+    }
+</style>
+<div class="hero-unit">
+    
+    <div>
+
+        <h2>Ordenar</h2>
+        <div>
+
+
+            <ul>
+                <li>
+                    <label>Habitacion:</label>
+                    <input type="text" id="txtHab" />
+                </li>
+                <li>
+                    <label>ID:</label>
+                    <input type="text" id="txtIdSearch" />
+                </li>
+                <li>
+                    <input type="button" id="btnSearch" value="Agregar al carro" />
+                </li>
+            </ul>
+        </div>
+        <div>
+            <input type="button" id="btnRefresh" value="Refresh" />
+        </div>
+        <h2>Carrito</h2>
+        <table id="tblCarro" class="table table-bordered table-hover">
+            <thead>
+
+                <tr>
+                    <th>Habitacion</th>
+                    <th>Restaurante</th>
+                    <th>Tipo</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            
+        </table>
+        <div>
+            <input type="button" id="btnCreate" value="Ordenar" />
+            <input type="button" id="btnDelete" value="Cancelar" />
+        </div>
+        <h2>Menu</h2>
+        <table id="tblList" class="table table-bordered table-hover">
+           <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Restaurante</th>
+                    <th>Tipo</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/app/menu.js")"></script>
+}
