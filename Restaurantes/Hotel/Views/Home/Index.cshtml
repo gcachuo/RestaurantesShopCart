@@ -1,0 +1,46 @@
+﻿
+<style type="text/css">.hero-unit { }</style>
+<div class="hero-unit">
+    <div>
+        <table id="tblList" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Habitacion</th>
+                    <th>Total</th>
+                    <th>Completado</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <h2>Pedidos</h2>
+    <div>
+        <ul>
+            <li>
+                <label>Id:</label>
+                <input type="text" id="txtIdSearch" />
+                <input type="button" id="btnSearch" value="Buscar" />
+            </li>
+            <li>
+                <label>Habitacion:</label>
+                <input type="text" id="txtName" />
+            </li>
+            @*<li>
+                <label>Descripcion:</label>
+                <input type="text" id="txtDescripcion" />
+            </li>*@
+            <li>
+                <label>Total:</label>
+                <input type="text" id="txtTotal" />
+            </li>
+            <li>
+                <input type="button" id="btnUpdate" value="Completar" />
+            </li>
+        </ul>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/app/pedido.js")"></script>
+}

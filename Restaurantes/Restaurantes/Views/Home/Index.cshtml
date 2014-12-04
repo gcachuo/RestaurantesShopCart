@@ -16,13 +16,29 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Restaurant</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody data-bind="foreach: Books">
+                <tr>
+                    <td data-bind="text: id"></td>
+                    <td data-bind="text: title"></td>
+                    <td data-bind="text: author"></td>
+                    <td data-bind="text: quantity"></td>
+                    <td data-bind="text: price"></td>
+                    <td>
+                        <input class="input-mini" type="text" placeholder=".input-mini" data-bind="value: selectedQuantity" />
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" type="button" data-bind='click: $parent.Cart.add'>Add product</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

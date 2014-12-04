@@ -1,0 +1,140 @@
+﻿$(document).on("ready", function () {
+    $('#btnSearch').on('click', function () {
+        GetArticuloById($('#txtIdSearch').val());
+    });
+    $('#btnDelete').on('click', function () {
+        DeletePedidoById($('#txtIdSearch').val());
+    });
+    $('#btnUpdate').on('click', function () {
+        var menu = new Object();
+        menu.Ped_Registro = $('#txtIdSearch').val();
+        menu.Ped_Nombre = $('#txtName').val();
+        menu.Ped_Total = $('#txtTotal').val();
+        menu.Ped_Completado = "Completado";
+        UpdatePedido(menu.Ped_Registro, JSON.stringify(menu));
+    });
+    $('#btnCreate').on('click', function () {
+        var menu = new Object();
+        menu.Menu_Nombre = $('#txtName').val();
+        menu.Menu_Precio = $('#').val();
+        CreatePedido(JSON.stringify(menu));
+    });
+    GetAll();
+}); //Get all menus
+function GetAll() {
+    var item = "";
+    $('#tblList tbody').html('');
+    $.getJSON('/api/Menu', function (data) {
+        $.each(data, function (key, value) {
+
+          
+            item += "<tr><td>" + value.Menu_Id + "</td><td>" + value.Menu_Restaurante + "</td><td>" + value.Menu_Tipo + "</td><td>" + value.Menu_Nombre + "</td><td>" + value.Menu_Descripcion + "</td><td>" + value.Menu_Precio + "</td></tr>";
+            
+        });
+        $('#tblList tbody').append(item);
+    });
+};
+function GetCarro() {
+    var item = "";
+    $('#tblList tbody').html('');
+    $.getJSON('/api/Pedido', function (data) {
+        $.each(data, function (key, value) {
+
+
+            item += "<tr><td>" + value.Ped_Total +  "</td></tr>";
+
+        });
+        $('#tblList tbody').append(item);
+    });
+};
+
+
+//Get menu by id
+function GetArticuloById(idPedido) {
+    var url = '/api/Menu/' + idPedido;
+    $.getJSON(url).done(function (data) {
+        //$('#txtDescripcion').val(data.Ped_Descripcion);
+        $('#txtTotal').val(data.Ped_Total);
+    })
+        .fail(function (erro) {
+            alert(erro);
+            ClearForm();
+        });
+};
+
+//Delete menu by id
+function DeletePedidoById(idPedido) {
+    var url = '/api/Menu/' + idPedido;
+    $.ajax({
+        url: url,
+        type: 'DELETE',
+        contentType: "application/json;chartset=utf-8",
+        statusCode: {
+            200: function () {
+                GetAll();
+                ClearForm();
+                alert('Pedido ' + idPedido + ' fue borrado');
+            },
+            404: function () {
+                alert('Pedido ' + idPedido + ' no se encontro');
+            }
+        }
+    });
+}
+
+//Update menu
+function UpdatePedido(idPedido, menu) {
+    var url = '/api/Menu/' + idPedido;
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: menu,
+        contentType: "application/json;chartset=utf-8",
+        statusCode: {
+            200: function () {
+                GetAll();
+                alert('Pedido: ' + idPedido + ' fue completado');
+                ClearForm();
+            },
+            404: function () {
+
+                alert('Pedido ' + idPedido + ' no se encontro');
+                ClearForm();
+            },
+            400: function () {
+                ClearForm();
+                alert('Error');
+            }
+        }
+    });
+}
+
+
+//Create a new menu
+function CreatePedido(menu) {
+    var url = '/api/Menu/';
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: menu,
+        contentType: "application/json;chartset=utf-8",
+        statusCode: {
+            201: function () {
+                GetAll();
+                ClearForm();
+            },
+            400: function () {
+                ClearForm();
+                alert('Error');
+            }
+        }
+    });
+}
+
+//Clear form
+function ClearForm() {
+    $('#txtIdSearch').val('');
+    $('#txtName').val('');
+    $('#txtDescripcion').val('');
+    $('#txtTotal').val('');
+}
