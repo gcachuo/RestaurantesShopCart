@@ -31,6 +31,7 @@
         menu.Ped_Total = $("#Total").text();
         CreatePedido(JSON.stringify(menu));
         DeletePedidoById($('#txtHab').val());
+        window.location.href = "Habitacion";
     });
     GetAll();
     GetCarro();

@@ -7,7 +7,7 @@
         hab.Hab_Apellido = $('#txtApellido').val();
         hab.Hab_Rfc = $('#txtRFC').val();
         CreateHab(JSON.stringify(hab));
-
+        window.location.href = "Cliente";
     });
     function CreateHab(hab) {
         var url = '/api/Habitacion/';
