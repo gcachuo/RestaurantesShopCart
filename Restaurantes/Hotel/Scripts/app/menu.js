@@ -1,9 +1,14 @@
 ﻿$(document).on("ready", function () {
+   
     $('#btnSearch').on('click', function () {
+        UpdatePedido($('#txtHab').val());
         GetArticuloById($('#txtIdSearch').val());
     });
     $('#btnDelete').on('click', function () {
-        DeletePedidoById($('#txtIdSearch').val());
+        DeletePedidoById($('#txtHab').val());
+    });
+    $('#btnRefresh').on('click', function () {
+        GetCarro();
     });
     $('#btnUpdate').on('click', function () {
         var menu = new Object();
@@ -14,12 +19,21 @@
         UpdatePedido(menu.Ped_Registro, JSON.stringify(menu));
     });
     $('#btnCreate').on('click', function () {
+        var suma;
+        $.getJSON('/api/Carrito', function (data) {
+            $.each(data, function (key, value) {
+                suma += value.Carrito_Precio;
+            });
+        });
         var menu = new Object();
-        menu.Menu_Nombre = $('#txtName').val();
-        menu.Menu_Precio = $('#').val();
+        menu.Ped_Id = $('#txtHab').val();
+        menu.Ped_Nombre = $('#txtHab').val();
+        menu.Ped_Total = $("#Total").text();
         CreatePedido(JSON.stringify(menu));
+        DeletePedidoById($('#txtHab').val());
     });
     GetAll();
+    GetCarro();
 }); //Get all menus
 function GetAll() {
     var item = "";
@@ -27,25 +41,33 @@ function GetAll() {
     $.getJSON('/api/Menu', function (data) {
         $.each(data, function (key, value) {
 
-          
-            item += "<tr><td>" + value.Menu_Id + "</td><td>" + value.Menu_Restaurante + "</td><td>" + value.Menu_Tipo + "</td><td>" + value.Menu_Nombre + "</td><td>" + value.Menu_Descripcion + "</td><td>" + value.Menu_Precio + "</td></tr>";
-            
+
+            item += "<tr><td>" + value.Menu_Id + "</td><td>" + value.Menu_Restaurante + "</td><td>" + value.Menu_Tipo + "</td><td>" + value.Menu_Nombre + "</td><td>" + value.Menu_Descripcion + "</td><td align='right'>" + value.Menu_Precio + "</td></tr>";
+
         });
         $('#tblList tbody').append(item);
     });
 };
+
 function GetCarro() {
     var item = "";
-    $('#tblList tbody').html('');
-    $.getJSON('/api/Pedido', function (data) {
+    var suma = 0;
+    $('#tblCarro tbody').html('');
+    $.getJSON('/api/Carrito', function (data) {
         $.each(data, function (key, value) {
 
-
-            item += "<tr><td>" + value.Ped_Total +  "</td></tr>";
-
+            item += "<tr><td>" + value.Carrito_Id + "</td><td>" + value.Carrito_Restaurante + "</td><td>" + value.Carrito_Tipo + "</td><td>" + value.Carrito_Nombre + "</td><td>" + value.Carrito_Descripcion + "</td><td align='right'>" + value.Carrito_Precio + "</td></tr>";
+            suma += value.Carrito_Precio;
         });
-        $('#tblList tbody').append(item);
+
+        $('#tblCarro tbody').append(item);
+
+        document.getElementById("tblCarro").deleteTFoot();
+        var foot = $("#tblCarro").find('tfoot');
+        if (!foot.length) foot = $('<tfoot>').appendTo("#tblCarro");
+        foot.append($('<td><td><td><td><td align="right"><b>Total</b></td><td align="right" id="Total">' + suma + '</td></td></td></td></td>'));
     });
+
 };
 
 
@@ -53,8 +75,6 @@ function GetCarro() {
 function GetArticuloById(idPedido) {
     var url = '/api/Menu/' + idPedido;
     $.getJSON(url).done(function (data) {
-        //$('#txtDescripcion').val(data.Ped_Descripcion);
-        $('#txtTotal').val(data.Ped_Total);
     })
         .fail(function (erro) {
             alert(erro);
@@ -71,9 +91,9 @@ function DeletePedidoById(idPedido) {
         contentType: "application/json;chartset=utf-8",
         statusCode: {
             200: function () {
-                GetAll();
+                GetCarro();
                 ClearForm();
-                alert('Pedido ' + idPedido + ' fue borrado');
+                alert('Correcto');
             },
             404: function () {
                 alert('Pedido ' + idPedido + ' no se encontro');
@@ -92,8 +112,7 @@ function UpdatePedido(idPedido, menu) {
         contentType: "application/json;chartset=utf-8",
         statusCode: {
             200: function () {
-                GetAll();
-                alert('Pedido: ' + idPedido + ' fue completado');
+                GetCarro();
                 ClearForm();
             },
             404: function () {
@@ -112,7 +131,7 @@ function UpdatePedido(idPedido, menu) {
 
 //Create a new menu
 function CreatePedido(menu) {
-    var url = '/api/Menu/';
+    var url = '/api/Pedido/';
     $.ajax({
         url: url,
         type: 'POST',

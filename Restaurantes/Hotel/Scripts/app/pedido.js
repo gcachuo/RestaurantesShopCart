@@ -12,6 +12,7 @@
         pedido.Ped_Total = $('#txtTotal').val();
         pedido.Ped_Completado = "Completado";
         UpdatePedido(pedido.Ped_Registro, JSON.stringify(pedido));
+        GetAll();
     });
     $('#btnCreate').on('click', function () {
         var pedido = new Object();

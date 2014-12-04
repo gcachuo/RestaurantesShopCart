@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Hotel.Models;
 
 #pragma warning disable 1591
 //------------------------------------------------------------------------------
@@ -33,6 +32,9 @@ namespace Hotel
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertCarritoe(Carritoe instance);
+    partial void UpdateCarritoe(Carritoe instance);
+    partial void DeleteCarritoe(Carritoe instance);
     #endregion
 		
 		public CarritoDataContext() : 
@@ -75,9 +77,14 @@ namespace Hotel
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Carritoes")]
-	public partial class Carritoe
+	public partial class Carritoe : INotifyPropertyChanging, INotifyPropertyChanged
 	{
-		[Key]
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+        [Key]
+		
+		private int _Carrito_Llave;
+		
 		private System.Nullable<int> _Carrito_Id;
 		
 		private string _Carrito_Restaurante;
@@ -90,13 +97,53 @@ namespace Hotel
 		
 		private System.Nullable<decimal> _Carrito_Precio;
 		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCarrito_LlaveChanging(int value);
+    partial void OnCarrito_LlaveChanged();
+    partial void OnCarrito_IdChanging(System.Nullable<int> value);
+    partial void OnCarrito_IdChanged();
+    partial void OnCarrito_RestauranteChanging(string value);
+    partial void OnCarrito_RestauranteChanged();
+    partial void OnCarrito_TipoChanging(string value);
+    partial void OnCarrito_TipoChanged();
+    partial void OnCarrito_NombreChanging(string value);
+    partial void OnCarrito_NombreChanged();
+    partial void OnCarrito_DescripcionChanging(string value);
+    partial void OnCarrito_DescripcionChanged();
+    partial void OnCarrito_PrecioChanging(System.Nullable<decimal> value);
+    partial void OnCarrito_PrecioChanged();
+    #endregion
+		
 		public Carritoe()
 		{
-             
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Carrito_Id", DbType="Int",IsPrimaryKey = true)]
-        [Key]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Carrito_Llave", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[Key]
+        public int Carrito_Llave
+		{
+			get
+			{
+				return this._Carrito_Llave;
+			}
+			set
+			{
+				if ((this._Carrito_Llave != value))
+				{
+					this.OnCarrito_LlaveChanging(value);
+					this.SendPropertyChanging();
+					this._Carrito_Llave = value;
+					this.SendPropertyChanged("Carrito_Llave");
+					this.OnCarrito_LlaveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Carrito_Id", DbType="Int")]
 		public System.Nullable<int> Carrito_Id
 		{
 			get
@@ -107,7 +154,11 @@ namespace Hotel
 			{
 				if ((this._Carrito_Id != value))
 				{
+					this.OnCarrito_IdChanging(value);
+					this.SendPropertyChanging();
 					this._Carrito_Id = value;
+					this.SendPropertyChanged("Carrito_Id");
+					this.OnCarrito_IdChanged();
 				}
 			}
 		}
@@ -123,7 +174,11 @@ namespace Hotel
 			{
 				if ((this._Carrito_Restaurante != value))
 				{
+					this.OnCarrito_RestauranteChanging(value);
+					this.SendPropertyChanging();
 					this._Carrito_Restaurante = value;
+					this.SendPropertyChanged("Carrito_Restaurante");
+					this.OnCarrito_RestauranteChanged();
 				}
 			}
 		}
@@ -139,7 +194,11 @@ namespace Hotel
 			{
 				if ((this._Carrito_Tipo != value))
 				{
+					this.OnCarrito_TipoChanging(value);
+					this.SendPropertyChanging();
 					this._Carrito_Tipo = value;
+					this.SendPropertyChanged("Carrito_Tipo");
+					this.OnCarrito_TipoChanged();
 				}
 			}
 		}
@@ -155,7 +214,11 @@ namespace Hotel
 			{
 				if ((this._Carrito_Nombre != value))
 				{
+					this.OnCarrito_NombreChanging(value);
+					this.SendPropertyChanging();
 					this._Carrito_Nombre = value;
+					this.SendPropertyChanged("Carrito_Nombre");
+					this.OnCarrito_NombreChanged();
 				}
 			}
 		}
@@ -171,7 +234,11 @@ namespace Hotel
 			{
 				if ((this._Carrito_Descripcion != value))
 				{
+					this.OnCarrito_DescripcionChanging(value);
+					this.SendPropertyChanging();
 					this._Carrito_Descripcion = value;
+					this.SendPropertyChanged("Carrito_Descripcion");
+					this.OnCarrito_DescripcionChanged();
 				}
 			}
 		}
@@ -187,8 +254,32 @@ namespace Hotel
 			{
 				if ((this._Carrito_Precio != value))
 				{
+					this.OnCarrito_PrecioChanging(value);
+					this.SendPropertyChanging();
 					this._Carrito_Precio = value;
+					this.SendPropertyChanged("Carrito_Precio");
+					this.OnCarrito_PrecioChanged();
 				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
