@@ -37,12 +37,6 @@ namespace Hotel
     partial void DeleteCarritoe(Carritoe instance);
     #endregion
 		
-		public CarritoDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Rest_HotelConnectionString"].ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
 		public CarritoDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -123,8 +117,7 @@ namespace Hotel
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Carrito_Llave", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		[Key]
-        public int Carrito_Llave
+		[Key]public int Carrito_Llave
 		{
 			get
 			{

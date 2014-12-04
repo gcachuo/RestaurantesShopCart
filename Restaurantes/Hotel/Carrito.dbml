@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Rest_Hotel" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=MEMO-HP;Initial Catalog=Rest_Hotel;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Rest_HotelConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Carritoes" Member="Carritoes">
     <Type Name="Carritoe">
       <Column Name="Carrito_Llave" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

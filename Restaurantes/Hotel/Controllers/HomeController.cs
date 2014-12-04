@@ -19,5 +19,9 @@ namespace Hotel.Controllers
         {
             return View();
         }
+        public ActionResult Habitacion()
+        {
+            return View();
+        }
     }
 }

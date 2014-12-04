@@ -144,6 +144,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="CarritoContext.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
+    <Compile Include="Controllers\HabitacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
@@ -170,6 +171,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\hab.js" />
     <Content Include="Scripts\app\menu.js" />
     <Content Include="Scripts\app\pedido.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -213,6 +215,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Cliente.cshtml" />
+    <Content Include="Views\Home\Habitacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
